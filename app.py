@@ -1,5 +1,6 @@
 import json
 import re
+from io import BytesIO
 from pathlib import Path
 
 import pandas as pd
@@ -48,7 +49,7 @@ def clean(value):
 
 
 def make_items(file_bytes):
-    df = pd.read_excel(file_bytes, dtype=str, keep_default_na=False)
+    df = pd.read_excel(BytesIO(file_bytes), dtype=str, keep_default_na=False, engine="openpyxl")
     df.columns = [str(c).strip() for c in df.columns]
 
     aliases = {
